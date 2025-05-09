@@ -5,6 +5,7 @@ import id.my.hendisantika.mongodbk8s.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,4 +46,7 @@ public class BookService {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Book Id is not found"));
     }
 
+    public List<Book> getAll() {
+        return repository.findAll();
+    }
 }
