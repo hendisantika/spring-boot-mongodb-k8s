@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,4 +44,18 @@ public class AuthorController {
         return new ResponseEntity<>(authorService.create(author), HttpStatus.CREATED);
     }
 
+    /**
+     * {@code PUT  /author} : Updates an existing author.
+     *
+     * @param author the author to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated author,
+     * or with status {@code 400 (Bad Request)} if the author is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the author couldn't be updated.
+     */
+    @PutMapping()
+    public ResponseEntity<Author> updateAuthor(@Valid @RequestBody Author author) {
+        log.debug("REST request to update Author : {}", author);
+        Author result = authorService.update(author);
+        return ResponseEntity.ok().body(result);
+    }
 }
