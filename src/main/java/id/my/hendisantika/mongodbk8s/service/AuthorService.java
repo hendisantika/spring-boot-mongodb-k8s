@@ -1,5 +1,6 @@
 package id.my.hendisantika.mongodbk8s.service;
 
+import id.my.hendisantika.mongodbk8s.model.Author;
 import id.my.hendisantika.mongodbk8s.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthorService {
     private final AuthorRepository repository;
+
+    public Author create(Author author) {
+        return repository.save(author);
+    }
 }
