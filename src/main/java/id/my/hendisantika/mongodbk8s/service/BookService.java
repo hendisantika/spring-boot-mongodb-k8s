@@ -5,6 +5,8 @@ import id.my.hendisantika.mongodbk8s.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-mongodb-k8s
@@ -23,6 +25,20 @@ public class BookService {
 
     public Book create(Book book) {
         return repository.save(book);
+    }
+
+    public Book update(Book book) {
+        Book existingBook = repository.findById(book.getId()).orElse(null);
+        if (Objects.isNull(existingBook)) {
+            throw new RuntimeException("Book Id is not found");
+        }
+        existingBook.setDescription(book.getDescription());
+        existingBook.setIsbn(book.getIsbn());
+        existingBook.setPage(book.getPage());
+        existingBook.setTitle(book.getTitle());
+        existingBook.setPrice(book.getPrice());
+
+        return repository.save(existingBook);
     }
 
 }
