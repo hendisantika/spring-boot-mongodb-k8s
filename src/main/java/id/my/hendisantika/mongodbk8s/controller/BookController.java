@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +42,20 @@ public class BookController {
     public ResponseEntity<Book> createBook(@RequestBody @Valid Book book) {
         log.debug("REST request to save Book : {}", book);
         return new ResponseEntity<>(bookService.create(book), HttpStatus.CREATED);
+    }
+
+    /**
+     * {@code PUT  /book} : Updates an existing book.
+     *
+     * @param book the book to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated book,
+     * or with status {@code 400 (Bad Request)} if the book is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the book couldn't be updated.
+     */
+    @PutMapping()
+    public ResponseEntity<Book> updateBook(@Valid @RequestBody Book book) {
+        log.debug("REST request to update Book : {}", book);
+        Book result = bookService.update(book);
+        return ResponseEntity.ok().body(result);
     }
 }
