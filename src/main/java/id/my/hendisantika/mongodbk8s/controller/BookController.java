@@ -7,11 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -57,5 +60,19 @@ public class BookController {
         log.debug("REST request to update Book : {}", book);
         Book result = bookService.update(book);
         return ResponseEntity.ok().body(result);
+    }
+
+    /**
+     * {@code GET  /book} : get all the books.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of book in body.
+     */
+
+    @GetMapping()
+    public ResponseEntity<List<Book>> getAllBook() {
+        log.debug("REST request to get all books");
+        List<Book> lst = bookService.getAll();
+
+        return new ResponseEntity<>(lst, HttpStatus.OK);
     }
 }
