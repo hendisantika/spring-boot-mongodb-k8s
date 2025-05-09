@@ -1,5 +1,6 @@
 package id.my.hendisantika.mongodbk8s.service;
 
+import id.my.hendisantika.mongodbk8s.model.Book;
 import id.my.hendisantika.mongodbk8s.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository repository;
+
+    public Book create(Book book) {
+        return repository.save(book);
+    }
 
 }
