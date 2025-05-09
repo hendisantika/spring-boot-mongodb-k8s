@@ -5,6 +5,8 @@ import id.my.hendisantika.mongodbk8s.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-mongodb-k8s
@@ -23,5 +25,16 @@ public class AuthorService {
 
     public Author create(Author author) {
         return repository.save(author);
+    }
+
+    public Author update(Author author) {
+        Author existingAuthor = repository.findById(author.getId()).orElse(null);
+        if (Objects.isNull(existingAuthor)) {
+            throw new RuntimeException("Author Id is not found");
+        }
+        existingAuthor.setFirstname(author.getFirstname());
+        existingAuthor.setLastname(author.getLastname());
+
+        return repository.save(existingAuthor);
     }
 }
