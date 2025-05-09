@@ -34,3 +34,6 @@ public class ConfigMapController {
         return new DbInfo(host, name, debug);
     }
 }
+
+record DbInfo(String host, String name, String debug) {
+}
