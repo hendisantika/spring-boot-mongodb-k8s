@@ -46,4 +46,8 @@ public class AuthorService {
     public List<Author> getAll() {
         return repository.findAll();
     }
+
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
 }
