@@ -37,4 +37,8 @@ public class AuthorService {
 
         return repository.save(existingAuthor);
     }
+
+    public Author getOne(String id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Author Id is not found"));
+    }
 }
