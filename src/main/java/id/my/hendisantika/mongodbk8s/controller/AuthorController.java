@@ -7,11 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -57,5 +60,19 @@ public class AuthorController {
         log.debug("REST request to update Author : {}", author);
         Author result = authorService.update(author);
         return ResponseEntity.ok().body(result);
+    }
+
+    /**
+     * {@code GET  /author} : get all the authors.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of author in body.
+     */
+
+    @GetMapping()
+    public ResponseEntity<List<Author>> getAllAuthor() {
+        log.debug("REST request to get all authors");
+        List<Author> lst = authorService.getAll();
+
+        return new ResponseEntity<>(lst, HttpStatus.OK);
     }
 }
