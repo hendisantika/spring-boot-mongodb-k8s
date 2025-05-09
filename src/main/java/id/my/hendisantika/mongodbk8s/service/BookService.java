@@ -41,4 +41,8 @@ public class BookService {
         return repository.save(existingBook);
     }
 
+    public Book getOne(String id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Book Id is not found"));
+    }
+
 }
