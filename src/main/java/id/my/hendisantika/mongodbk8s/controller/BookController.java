@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -89,5 +90,18 @@ public class BookController {
         Book e = bookService.getOne(id);
 
         return new ResponseEntity<>(e, HttpStatus.OK);
+    }
+
+    /**
+     * {@code DELETE  /book/:id} : delete the "id" book.
+     *
+     * @param id the id of the book to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable("id") String id) {
+        log.debug("REST request to delete Book : {}", id);
+        bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
