@@ -22,32 +22,32 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
-    private final AuthorRepository repository;
+    private final AuthorRepository authorRepository;
 
     public Author create(Author author) {
-        return repository.save(author);
+        return authorRepository.save(author);
     }
 
     public Author update(Author author) {
-        Author existingAuthor = repository.findById(author.getId()).orElse(null);
+        Author existingAuthor = authorRepository.findById(author.getId()).orElse(null);
         if (Objects.isNull(existingAuthor)) {
             throw new RuntimeException("Author Id is not found");
         }
         existingAuthor.setFirstname(author.getFirstname());
         existingAuthor.setLastname(author.getLastname());
 
-        return repository.save(existingAuthor);
+        return authorRepository.save(existingAuthor);
     }
 
     public Author getOne(String id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Author Id is not found"));
+        return authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author Id is not found"));
     }
 
     public List<Author> getAll() {
-        return repository.findAll();
+        return authorRepository.findAll();
     }
 
     public void delete(String id) {
-        repository.deleteById(id);
+        authorRepository.deleteById(id);
     }
 }

@@ -22,14 +22,14 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class BookService {
-    private final BookRepository repository;
+    private final BookRepository bookRepository;
 
     public Book create(Book book) {
-        return repository.save(book);
+        return bookRepository.save(book);
     }
 
     public Book update(Book book) {
-        Book existingBook = repository.findById(book.getId()).orElse(null);
+        Book existingBook = bookRepository.findById(book.getId()).orElse(null);
         if (Objects.isNull(existingBook)) {
             throw new RuntimeException("Book Id is not found");
         }
@@ -39,14 +39,18 @@ public class BookService {
         existingBook.setTitle(book.getTitle());
         existingBook.setPrice(book.getPrice());
 
-        return repository.save(existingBook);
+        return bookRepository.save(existingBook);
     }
 
     public Book getOne(String id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Book Id is not found"));
+        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book Id is not found"));
     }
 
     public List<Book> getAll() {
-        return repository.findAll();
+        return bookRepository.findAll();
+    }
+
+    public void delete(String id) {
+        bookRepository.deleteById(id);
     }
 }
