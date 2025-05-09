@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,5 +75,19 @@ public class AuthorController {
         List<Author> lst = authorService.getAll();
 
         return new ResponseEntity<>(lst, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET  /author/:id} : get the "id" author.
+     *
+     * @param id the id of the author to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the author, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Author> getOneAuthor(@PathVariable("id") String id) {
+        log.debug("REST request to get Author : {}", id);
+        Author e = authorService.getOne(id);
+
+        return new ResponseEntity<>(e, HttpStatus.OK);
     }
 }
