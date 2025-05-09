@@ -5,6 +5,7 @@ import id.my.hendisantika.mongodbk8s.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -40,5 +41,9 @@ public class AuthorService {
 
     public Author getOne(String id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Author Id is not found"));
+    }
+
+    public List<Author> getAll() {
+        return repository.findAll();
     }
 }
