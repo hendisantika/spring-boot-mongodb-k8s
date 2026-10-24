@@ -14,7 +14,7 @@
     <name>spring-boot-mongodb-k8s</name>
     <description>spring-boot-mongodb-k8s</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>
